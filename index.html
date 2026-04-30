@@ -4,425 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voxu</title>
-    <style>
-        :root {
-            --bg: #000;
-            --t1: #e7e9ea;
-            --t2: #71767b;
-            --ac: #1d9bf0;
-            --bd: #2f3336;
-            --hv: #1a8cd8;
-            --err: #f4212e;
-        }
-
-        body {
-            background: var(--bg);
-            color: var(--t1);
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate {
-            animation: fadeIn 0.3s ease forwards;
-        }
-
-        /* Auth Screen */
-        #auth {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .card {
-            width: 320px;
-            text-align: center;
-            padding: 20px;
-        }
-
-        input, select {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            background: #111;
-            border: 1px solid var(--bd);
-            color: #fff;
-            border-radius: 4px;
-            box-sizing: border-box;
-            outline: none;
-        }
-
-        .btn-main {
-            background: var(--t1);
-            color: var(--bg);
-            border: none;
-            padding: 12px;
-            border-radius: 999px;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 10px;
-        }
-
-        /* Smooth transition between login and feed */
-        #auth, #main, #sidebar {
-            transition: opacity 0.5s ease-in-out;
-        }
-
-        .hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .visible {
-            opacity: 1;
-        }
-
-        /* Sidebar Navigation */
-        .nav {
-            position: fixed;
-            left: calc(50% - 450px);
-            width: 200px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 20px;
-            border-right: 1px solid var(--bd);
-        }
-
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 12px;
-            font-size: 19px;
-            cursor: pointer;
-            border-radius: 999px;
-            transition: 0.2s;
-            margin-bottom: 5px;
-            text-decoration: none;
-            color: var(--t1);
-        }
-
-            .nav-item:hover {
-                background: #181818;
-            }
-
-            .nav-item.active {
-                font-weight: bold;
-            }
-
-        /* Main Feed Area */
-        .feed-wrap {
-            width: 100%;
-            max-width: 600px;
-            margin-left: 200px;
-            border-right: 1px solid var(--bd);
-            min-height: 100vh;
-            display: none;
-        }
-
-        .header {
-            padding: 15px;
-            border-bottom: 1px solid var(--bd);
-            position: sticky;
-            top: 0;
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(10px);
-            z-index: 10;
-        }
-
-        .vox-box {
-            padding: 15px;
-            border-bottom: 1px solid var(--bd);
-        }
-
-        textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 19px;
-            outline: none;
-            resize: none;
-            font-family: inherit;
-        }
-
-        .post-btn-sm {
-            background: var(--ac);
-            color: #fff;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 999px;
-            font-weight: bold;
-            cursor: pointer;
-            float: right;
-        }
-
-        /* Posts & Tags */
-        .post {
-            padding: 15px;
-            border-bottom: 1px solid var(--bd);
-            position: relative;
-        }
-
-        .tag {
-            font-size: 10px;
-            padding: 2px 6px;
-            border-radius: 4px;
-            margin-left: 5px;
-            text-transform: uppercase;
-        }
-
-        .tag-admin {
-            background: var(--ac);
-            color: white;
-        }
-
-        .del-btn {
-            position: absolute;
-            right: 15px;
-            top: 15px;
-            color: var(--t2);
-            cursor: pointer;
-            font-size: 18px;
-            border: none;
-            background: none;
-        }
-
-        #admin-update-panel {
-            display: none;
-            background: #0a0a0a;
-            border: 1px solid var(--ac);
-            margin: 10px;
-            padding: 10px;
-            border-radius: 8px;
-        }
-
-        @media (max-width: 800px) {
-            .nav {
-                width: 60px;
-                left: 0;
-            }
-
-                .nav span {
-                    display: none;
-                }
-
-            .feed-wrap {
-                margin-left: 60px;
-            }
-        }
-    </style>
+    <link rel="icon" type="image/x-icon" href="Voxu.png">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <div id="school-lock">
+        <h1 style="font-size: 64px; margin: 0;">🔒</h1>
+        <h2 style="font-size: 24px;">Voxu is Locked</h2>
+        <p style="color: var(--t2); max-width: 300px;">Sorry! Voxu is blocked during school hours!</p>
+        <p style="color: var(--t2); max-width: 300px;">Try again after 2 P.M.</p>
+    </div>
     <div id="auth">
         <div class="card">
             <div style="font-size: 32px; font-weight: bold; margin-bottom: 20px;">V</div>
+            <h2 id="title">*IF YOU MADE AN ACCOUNT ON 4/30/2026, YOUR ACCOUNT HAS BEEN DELETED. PLEASE MAKE A NEW ACCOUNT*</h2>
             <h2 id="title">Log in to Voxu</h2>
             <input type="text" id="u" placeholder="Username">
             <input type="password" id="p" placeholder="Password (min 6 chars)">
+
             <select id="s"><option value="Margate Elementary">Margate Elementary</option></select>
             <button class="btn-main" id="go">Enter</button>
             <p id="tog" style="color:var(--t2); cursor:pointer; font-size:12px; margin-top: 20px;">Create account</p>
+            <p id="forgot-pw" style="color:var(--t2); cursor:pointer; font-size:12px; margin-top: -5px;">Forgot password?</p>
         </div>
     </div>
-
     <div class="nav" id="sidebar" style="display:none;">
         <div style="font-size: 28px; padding: 12px; margin-bottom: 10px;">V</div>
         <div class="nav-item active" id="nav-home" onclick="showTab('home')">🏠 <span>Home</span></div>
         <div class="nav-item" id="nav-updates" onclick="showTab('updates')">🔔 <span>Updates</span></div>
-        <div style="margin-top: auto; padding: 10px;">
-            <button id="logout-btn" style="background:none; border:1px solid var(--bd); color:var(--t2); cursor:pointer; border-radius:999px; padding:8px; width:100%">Sign Out</button>
-        </div>
+        <div class="nav-item" id="nav-settings" onclick="showTab('settings')">⚙️ <span>Settings</span></div>
     </div>
-
     <div class="feed-wrap" id="main">
         <div class="header">
             <div id="view-title" style="font-weight: 800; font-size: 19px;">Home</div>
             <div id="sl" style="font-size: 11px; color: var(--t2);"></div>
         </div>
-
         <div class="vox-box" id="home-post">
             <textarea id="msg" placeholder="What's up?" rows="2"></textarea>
             <div style="height: 40px; margin-top: 10px;"><button class="post-btn-sm" onclick="sendPost('posts')">Voxu</button></div>
         </div>
-
         <div id="admin-update-panel">
             <p style="margin:0 0 10px 0; color:var(--ac); font-size:12px; font-weight:bold;">ADMIN UPDATE TOOL</p>
             <textarea id="upd-msg" placeholder="Write official update..." rows="2" style="font-size:16px;"></textarea>
             <div style="height: 40px; margin-top: 5px;"><button class="post-btn-sm" onclick="sendPost('updates')">Post Update</button></div>
         </div>
-
         <div id="posts"></div>
+        <div id="settings-view" style="display:none; padding: 20px;">
+            <h3>Themes</h3>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                <button class="btn-main" onclick="setTheme('light')" style="background:#eee; color:#000;">Light Mode</button>
+                <button class="btn-main" onclick="setTheme('dark')">Dark Mode</button>
+                <button class="btn-main" onclick="setTheme('puppy')">🐶 Cute Puppy</button>
+                <button class="btn-main" onclick="setTheme('kitty')">🐱 Cute Kitty</button>
+                <h3>Sign Out</h3>
+                <button id="logout-btn" style="background:none; border:1px solid var(--bd); color:var(--t2); cursor:pointer; border-radius:999px; padding:8px; width:100%">Sign Out</button>
+            </div>
+        </div>
     </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, query, where, orderBy, onSnapshot, serverTimestamp, getDocs, deleteDoc, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-        const cfg = {
-            apiKey: "AIzaSyCiLGL-ChphpxlUZyycTJThyObKQJWsZvk",
-            authDomain: "voxu-838aa.firebaseapp.com",
-            projectId: "voxu-838aa",
-            storageBucket: "voxu-838aa.firebasestorage.app",
-            messagingSenderId: "429817709887",
-            appId: "1:429817709887:web:268011fbc906643e833f8a"
-        };
-
-        const app = initializeApp(cfg);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        let sch = "";
-        let userRole = "user";
-        let currentTab = "home";
-        let mode = true;
-
-        // UI Tabs Logic
-        window.showTab = (tab) => {
-            currentTab = tab;
-            document.getElementById('view-title').innerText = tab.charAt(0).toUpperCase() + tab.slice(1);
-            document.getElementById('nav-home').classList.toggle('active', tab === 'home');
-            document.getElementById('nav-updates').classList.toggle('active', tab === 'updates');
-
-            document.getElementById('home-post').style.display = (tab === 'home') ? 'block' : 'none';
-            document.getElementById('admin-update-panel').style.display = (tab === 'updates' && userRole === 'admin') ? 'block' : 'none';
-
-            loadFeed();
-        };
-
-        // Create/Delete Posts
-        window.sendPost = async (col) => {
-            const inputId = col === 'updates' ? 'upd-msg' : 'msg';
-            const input = document.getElementById(inputId);
-            if (!input.value.trim()) return;
-
-            await addDoc(collection(db, col), {
-                content: input.value,
-                author: auth.currentUser.displayName,
-                school: sch,
-                role: userRole,
-                createdAt: serverTimestamp()
-            });
-            input.value = "";
-        };
-
-        window.delPost = async (postId) => {
-            if (userRole === 'admin' || userRole === 'mod') {
-                const col = currentTab === 'updates' ? 'updates' : 'posts';
-                if (confirm("Delete this post?")) {
-                    await deleteDoc(doc(db, col, postId));
-                }
-            }
-        };
-
-        // Authentication Handlers
-        document.getElementById('logout-btn').onclick = () => signOut(auth);
-        document.getElementById('tog').onclick = () => {
-            mode = !mode;
-            document.getElementById('title').innerText = mode ? "Log in to Voxu" : "Join Voxu";
-            document.getElementById('go').innerText = mode ? "Enter" : "Create Account";
-        };
-
-        document.getElementById('go').onclick = async () => {
-            const u = document.getElementById('u').value.trim();
-            const p = document.getElementById('p').value;
-            const s = document.getElementById('s').value;
-            const email = `${u.toLowerCase()}@voxu.edu`;
-
-            try {
-                if (mode) {
-                    await signInWithEmailAndPassword(auth, email, p);
-                } else {
-                    const r = await createUserWithEmailAndPassword(auth, email, p);
-                    await updateProfile(r.user, { displayName: u });
-
-                    // CRITICAL: Doc ID must match UID for security rules
-                    await setDoc(doc(db, "users", r.user.uid), {
-                        uid: r.user.uid,
-                        school: s,
-                        role: "user"
-                    });
-                }
-            } catch (e) { alert("Auth failed: " + e.message); }
-        };
-        onAuthStateChanged(auth, async (user) => {
-            const authEl = document.getElementById('auth');
-            const mainEl = document.getElementById('main');
-            const sideEl = document.getElementById('sidebar');
-
-            if (user) {
-                // Fetch role data
-                const docSnap = await getDocs(query(collection(db, "users"), where("uid", "==", user.uid)));
-                docSnap.forEach(d => {
-                    sch = d.data().school;
-                    userRole = d.data().role || "user";
-                });
-
-                // FADE OUT LOGIN, FADE IN FEED
-                authEl.classList.add('hidden');
-                setTimeout(() => {
-                    authEl.style.display = 'none';
-                    mainEl.style.display = 'block';
-                    sideEl.style.display = 'flex';
-                    mainEl.classList.remove('hidden');
-                    sideEl.classList.remove('hidden');
-                    document.getElementById('sl').innerText = sch;
-                    showTab('home');
-                }, 500); // Matches the 0.5s CSS transition
-
-            } else {
-                // LOGOUT TRANSITION
-                mainEl.classList.add('hidden');
-                sideEl.classList.add('hidden');
-                setTimeout(() => {
-                    mainEl.style.display = 'none';
-                    sideEl.style.display = 'none';
-                    authEl.style.display = 'flex';
-                    authEl.classList.remove('hidden');
-                }, 500);
-            }
-        });
-
-        // Feed Real-time Listener
-        function loadFeed() {
-            const col = currentTab === 'updates' ? 'updates' : 'posts';
-            const q = query(collection(db, col), where("school", "==", sch), orderBy("createdAt", "desc"));
-
-            onSnapshot(q, (s) => {
-                const container = document.getElementById('posts');
-                container.innerHTML = "";
-                s.forEach(d => {
-                    const data = d.data();
-                    const tag = data.role === 'admin' ? '<span class="tag tag-admin">Admin</span>' : '';
-                    const del = (userRole === 'admin' || userRole === 'mod') ? `<button class="del-btn" onclick="delPost('${d.id}')">×</button>` : '';
-                    const el = document.createElement('div');
-                    el.className = 'post animate';
-                    el.innerHTML = `<b>@${data.author}</b>${tag}${del}<p>${data.content}</p>`;
-                    container.appendChild(el);
-                });
-            }, (err) => {
-                console.error("Snapshot error:", err);
-            });
-        }
-    </script>
+    <script type="module" src="script.js"></script>
 </body>
 </html>
