@@ -1,0 +1,430 @@
+:root {
+    --bg: #000;
+    --t1: #ffffff;
+    --t2: #71767b;
+    --ac: #1d9bf0;
+    --bd: #2f3336;
+    --hv: #1a8cd8;
+    --err: #f4212e;
+}
+
+body {
+    background: var(--bg);
+    color: var(--t1);
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    overflow-x: hidden;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate {
+    animation: fadeIn 0.3s ease forwards;
+}
+
+#auth {
+    background-color: #000000 !important;
+    background-image: none !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+    pointer-events: all;
+}
+
+    #auth.fade-out {
+        opacity: 0 !important;
+        pointer-events: none;
+    }
+
+    #auth input, #auth select {
+        background: #111 !important;
+        border: 1px solid #333 !important;
+        color: #fff !important;
+        border-radius: 8px;
+        padding: 12px;
+        margin: 8px 0;
+        width: 300px;
+    }
+
+#go {
+    background: #ffffff !important;
+    color: #000000 !important;
+    font-weight: bold;
+    border: none !important;
+    cursor: pointer;
+    transition: 0.2s;
+    padding: 12px;
+    border-radius: 8px;
+    width: 300px;
+    margin-top: 10px;
+}
+
+    #go:hover {
+        background: #cccccc !important;
+    }
+
+#auth h1, #auth p, #auth div {
+    color: #ffffff !important;
+    text-shadow: none !important;
+}
+
+.card {
+    width: 320px;
+    text-align: center;
+    padding: 20px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    background: #111;
+    border: 1px solid var(--bd);
+    color: #fff;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+#forgot-pw:hover {
+    color: var(--ac);
+    text-decoration: underline;
+}
+
+.btn-main {
+    background: var(--t1);
+    color: var(--bg);
+    border: none;
+    padding: 12px;
+    border-radius: 999px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+    margin-top: 10px;
+}
+
+#main {
+    display: none;
+    opacity: 0;
+}
+
+    #main.show-app {
+        display: block !important;
+        animation: slideUp 0.6s ease-out forwards;
+    }
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.nav {
+    position: fixed;
+    left: calc(50% - 450px);
+    width: 200px;
+    height: 100vh;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    border-right: 1px solid var(--bd);
+    z-index: 100;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    font-size: 19px;
+    cursor: pointer;
+    border-radius: 999px;
+    transition: 0.2s;
+    margin-bottom: 5px;
+    text-decoration: none;
+    color: var(--t1) !important;
+}
+
+    .nav-item.active {
+        font-weight: bold;
+        background: var(--bd);
+    }
+
+.feed-wrap {
+    width: 100%;
+    max-width: 600px;
+    margin-left: 200px;
+    border-right: 1px solid var(--bd);
+    min-height: 100vh;
+}
+
+.header {
+    padding: 15px;
+    border-bottom: 1px solid var(--bd);
+    position: sticky;
+    top: 0;
+    background: var(--bg);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+}
+
+.vox-box {
+    padding: 15px;
+    border-bottom: 1px solid var(--bd);
+}
+
+textarea {
+    width: 100%;
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 19px;
+    outline: none;
+    resize: none;
+    font-family: inherit;
+}
+
+.post-btn-sm {
+    background: var(--ac);
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-weight: bold;
+    cursor: pointer;
+    float: right;
+}
+
+.post {
+    padding: 15px;
+    border-bottom: 1px solid var(--bd);
+    position: relative;
+}
+
+.tag {
+    font-size: 11px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 5px;
+    text-transform: uppercase;
+}
+
+.tag-admin {
+    background: var(--ac);
+    color: white;
+}
+
+.del-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    color: var(--t2);
+    cursor: pointer;
+    font-size: 18px;
+    border: none;
+    background: none;
+}
+
+#admin-update-panel {
+    display: none;
+    background: #0a0a0a;
+    border: 1px solid var(--ac);
+    margin: 10px;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+#school-lock {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 10000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+.home-post-input-wrap {
+    background: transparent;
+    border: 1px solid var(--bd);
+    border-radius: 999px;
+    padding: 10px 20px;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.main-content {
+    padding-top: 0 !important;
+}
+
+#home-post {
+    padding-top: 0px !important;
+}
+
+body.light-theme {
+    --bg: #ffffff;
+    --t1: #0f1419;
+    --t2: #536471;
+    --bd: #eff3f4;
+}
+
+    body.light-theme .nav-item span {
+        color: #0f1419 !important;
+    }
+
+    body.light-theme .header {
+        background: rgba(255, 255, 255, 0.8) !important;
+        color: #000;
+    }
+
+    body.light-theme #admin-update-panel {
+        background: #f0f0f0;
+    }
+
+body.puppy-theme {
+    background-image: url('https://png.pngtree.com/background/20221105/original/pngtree-seamless-pattern-with-cute-dogs-and-puppies-in-scandinavian-style-picture-image_1945032.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    --t1: #ffffff;
+    --bd: rgba(255,255,255,0.2);
+}
+
+body.kitty-theme {
+    background-image: url('https://png.pngtree.com/background/20230612/original/pngtree-white-cat-laying-on-the-ground-on-the-ground-under-a-picture-image_3175366.jpg');
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-attachment: fixed !important;
+    background-position: center !important;
+    --t1: #ffffff;
+    --bd: rgba(255,255,255,0.2);
+}
+
+    body.puppy-theme .post, body.kitty-theme .post {
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(5px);
+        margin: 10px;
+        border-radius: 12px;
+    }
+
+    body.puppy-theme #admin-update-panel, body.kitty-theme #admin-update-panel {
+        background: rgba(0, 0, 0, 0.6) !important;
+        backdrop-filter: blur(5px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    }
+
+    body.puppy-theme .header, body.kitty-theme .header {
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        border-top: none !important;
+        border-radius: 0 0 0 0 !important;
+        margin-top: 0 !important;
+        padding-top: 20px;
+        border-bottom: none !important;
+        box-shadow: none !important;
+    }
+
+    body.puppy-theme .header, body.kitty-theme .header, body.kitty-theme .vox-box, body.puppy-theme .vox-box, body.puppy-theme #admin-update-panel, body.kitty-theme #admin-update-panel {
+        background: rgba(255, 255, 255, 0.1) !important;
+        backdrop-filter: blur(15px) !important;
+    }
+
+    body.puppy-theme .btn-main, body.kitty-theme .btn-main {
+        background: rgba(0, 0, 0, 0.7) !important;
+        color: white !important;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    body.puppy-theme #settings-view button, body.kitty-theme #settings-view button {
+        background: rgba(0, 0, 0, 0.7) !important;
+        color: white !important;
+    }
+
+    body.puppy-theme .btn-light, body.kitty-theme .btn-light {
+        background: #eeeeee !important;
+        color: #000000 !important;
+    }
+
+    body.puppy-theme .vox-box, body.kitty-theme .vox-box {
+        border-radius: 0 0 20px 20px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: none !important;
+        margin-top: 0 !important;
+    }
+
+    body.puppy-theme #home-post, body.kitty-theme #home-post {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 0 0 20px 20px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-top: none;
+    }
+
+    body.puppy-theme #msg, body.kitty-theme #msg, body.puppy-theme #upd-msg, body.kitty-theme #upd-msg {
+        background: transparent !important;
+        border: none !important;
+        color: white !important;
+        outline: none !important;
+        width: 100%;
+        resize: none;
+    }
+
+        body.puppy-theme #msg::placeholder, body.kitty-theme #msg::placeholder, body.puppy-theme #upd-msg::placeholder, body.kitty-theme #upd-msg::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+    body.puppy-theme .post-btn-sm, body.kitty-theme .post-btn-sm {
+        background: rgba(255, 255, 255, 0.2) !important;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        color: white !important;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+@media (max-width: 800px) {
+    .nav {
+        width: 60px;
+        left: 0;
+    }
+
+        .nav span {
+            display: none;
+        }
+
+    .feed-wrap {
+        margin-left: 60px;
+    }
+}
