@@ -81,6 +81,20 @@
             margin-top: 10px;
         }
 
+        /* Smooth transition between login and feed */
+        #auth, #main, #sidebar {
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .visible {
+            opacity: 1;
+        }
+
         /* Sidebar Navigation */
         .nav {
             position: fixed;
@@ -247,7 +261,7 @@
         </div>
 
         <div class="vox-box" id="home-post">
-            <textarea id="msg" placeholder="What's up?" rows="2"></textarea>
+            <textarea id="msg" placeholder="What's happening?" rows="2"></textarea>
             <div style="height: 40px; margin-top: 10px;"><button class="post-btn-sm" onclick="sendPost('posts')">Voxu</button></div>
         </div>
 
@@ -350,29 +364,41 @@
                 }
             } catch (e) { alert("Auth failed: " + e.message); }
         };
-
-        // Auth State Monitor
         onAuthStateChanged(auth, async (user) => {
-            if (user) {
-                // Fetch user data from the doc named after their UID
-                const docRef = doc(db, "users", user.uid);
-                const docSnap = await getDocs(query(collection(db, "users"), where("uid", "==", user.uid)));
+            const authEl = document.getElementById('auth');
+            const mainEl = document.getElementById('main');
+            const sideEl = document.getElementById('sidebar');
 
+            if (user) {
+                // Fetch role data
+                const docSnap = await getDocs(query(collection(db, "users"), where("uid", "==", user.uid)));
                 docSnap.forEach(d => {
                     sch = d.data().school;
                     userRole = d.data().role || "user";
                 });
 
-                document.getElementById('sl').innerText = sch;
-                document.getElementById('auth').style.display = 'none';
-                document.getElementById('main').style.display = 'block';
-                document.getElementById('sidebar').style.display = 'flex';
-                showTab('home');
+                // FADE OUT LOGIN, FADE IN FEED
+                authEl.classList.add('hidden');
+                setTimeout(() => {
+                    authEl.style.display = 'none';
+                    mainEl.style.display = 'block';
+                    sideEl.style.display = 'flex';
+                    mainEl.classList.remove('hidden');
+                    sideEl.classList.remove('hidden');
+                    document.getElementById('sl').innerText = sch;
+                    showTab('home');
+                }, 500); // Matches the 0.5s CSS transition
+
             } else {
-                userRole = "user"; // Reset role on logout
-                document.getElementById('auth').style.display = 'flex';
-                document.getElementById('main').style.display = 'none';
-                document.getElementById('sidebar').style.display = 'none';
+                // LOGOUT TRANSITION
+                mainEl.classList.add('hidden');
+                sideEl.classList.add('hidden');
+                setTimeout(() => {
+                    mainEl.style.display = 'none';
+                    sideEl.style.display = 'none';
+                    authEl.style.display = 'flex';
+                    authEl.classList.remove('hidden');
+                }, 500);
             }
         });
 
